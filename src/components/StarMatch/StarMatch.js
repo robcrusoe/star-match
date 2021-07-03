@@ -15,7 +15,7 @@ const PlayAgain = (props) => {
   );
 };
 
-const StarMatch = () => {
+const Game = (props) => {
   const [stars, setStars] = useState(utils.random(1, 9));
   const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
   const [candidateNums, setCandidateNums] = useState([]);
@@ -34,14 +34,7 @@ const StarMatch = () => {
 
       return () => { clearTimeout(timer); };
     }
-  }, [secondsLeft]);
-
-  const resetGame = () => {
-    setStars(utils.random(1, 9));
-    setAvailableNums(utils.range(1, 9));
-    setCandidateNums([]);
-    setSecondsLeft(10);
-  };
+  }, [secondsLeft, availableNums.length]);
 
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
@@ -79,7 +72,7 @@ const StarMatch = () => {
       </div>
       <div className="body">
         <div className="left">
-          {gameStatus !== 'active' ? <PlayAgain click={resetGame} gameStatus={gameStatus} /> : <StarsDisplay count={stars} />}
+          {gameStatus !== 'active' ? <PlayAgain click={props.startNewGame} gameStatus={gameStatus} /> : <StarsDisplay count={stars} />}
         </div>
         <div className="right">
           {utils.range(1, 9).map(numberId => (
@@ -95,6 +88,11 @@ const StarMatch = () => {
       <div className="timer">Time Remaining: {secondsLeft}</div>
     </div>
   );
+};
+
+const StarMatch = () => {
+  const [gameId, setGameId] = useState(1);
+  return <Game key={gameId} startNewGame={() => { setGameId(gameId + 1) }} />;
 };
 
 export default StarMatch;
