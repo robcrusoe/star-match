@@ -6,14 +6,10 @@ const PlayNumber = (props) => {
     candidate: 'deepskyblue',
   };
 
-  const numberClickHandler = () => {
-    console.log(props.number);
-  };
-
   return (
     <button
       className="number"
-      onClick={numberClickHandler}
+      onClick={() => (props.click(props.number, props.status))}
       style={{ background: colors[props.status] }}
     >
       {props.number}
