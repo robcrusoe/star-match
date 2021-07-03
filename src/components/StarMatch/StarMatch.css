@@ -59,7 +59,13 @@
 }
 
 .game-done .message {
-  font-size: 250%;
+  font-size: 150%;
   font-weight: bold;
   margin: 15px;
+}
+
+.game-done button {
+  height: 3rem;
+  width: 5rem;
+  cursor: pointer;
 }
